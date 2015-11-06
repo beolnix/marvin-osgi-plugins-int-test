@@ -2,6 +2,8 @@ package com.beolnix;
 
 import com.jcabi.aether.Aether;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonatype.aether.artifact.Artifact;
 import org.sonatype.aether.repository.RemoteRepository;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
@@ -10,10 +12,15 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Created by DAtmakin on 11/6/2015.
  */
 public class SimpleTestCase {
+
+    Logger logger = LoggerFactory.getLogger(SimpleTestCase.class);
 
     @Test
     public void resolveTestCase() throws Exception {
@@ -34,8 +41,13 @@ public class SimpleTestCase {
                 new DefaultArtifact("com.jcabi", "jcabi-aether", "", "jar", "1.0-SNAPSHOT"),
                 "runtime"
         );
+
+        assertFalse(deps.isEmpty());
+
         for (Artifact artifact : deps) {
-            System.out.println("\n\n\n" + artifact.getFile().getAbsolutePath() + "\n\n\n");
+            assertNotNull(artifact);
+            assertNotNull(artifact.getFile());
+            logger.info("downloaded dep: " + artifact.getFile().getAbsolutePath());
         }
     }
 }
