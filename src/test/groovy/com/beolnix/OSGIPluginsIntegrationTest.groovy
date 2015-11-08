@@ -8,6 +8,7 @@ import com.beolnix.marvin.plugins.api.PluginsManager
 import com.beolnix.marvin.plugins.providers.osgi.FelixOSGIContainer
 import com.beolnix.marvin.plugins.providers.osgi.OSGIPluginsProvider
 import com.jcabi.aether.Aether
+import org.apache.log4j.Logger
 import org.junit.Test
 import org.sonatype.aether.artifact.Artifact
 import org.sonatype.aether.repository.RemoteRepository
@@ -26,6 +27,8 @@ import static org.junit.Assert.assertTrue;
  * Created by beolnix on 08/11/15.
  */
 class OSGIPluginsIntegrationTest {
+
+    def logger = Logger.getLogger(OSGIPluginsIntegrationTest.class)
 
     def getPlugin(String group, String artifact, String version) {
         File local = new File("target/repo");
@@ -64,7 +67,6 @@ class OSGIPluginsIntegrationTest {
     }
 
     def initContainerWith(PluginsListener listener) {
-        deployPlugin()
         def configurationProv = getConfigurationProv()
 
         def pluginsManager = [
@@ -76,8 +78,7 @@ class OSGIPluginsIntegrationTest {
         def felixOsgiContainer = FelixOSGIContainer.createNewInstance(configurationProv)
         def osgiPluginsProvider = OSGIPluginsProvider.createNewInstance(configurationProv, felixOsgiContainer, pluginsManager)
         osgiPluginsProvider.registerPluginsListener(listener)
-
-
+        deployPlugin()
     }
 
     @Test
@@ -113,5 +114,6 @@ class OSGIPluginsIntegrationTest {
         File pluginDir = new File("target/pluginsDeployPath")
         pluginDir.mkdirs()
         Files.copy(new FileInputStream(pluginFile), Paths.get("target/pluginsDeployPath/marvin-newyear-plugin-0.2-SNAPSHOT.jar"), REPLACE_EXISTING)
+        logger.info("artifact downloaded successfully")
     }
 }
