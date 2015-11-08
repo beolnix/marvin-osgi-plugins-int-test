@@ -13,6 +13,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.version>3.0.5</maven.version>
+        <groovy.version>2.4.4</groovy.version>
+        <marvin.core.version>0.2-SNAPSHOT</marvin.core.version>
+        <marvin.api.version>0.2-SNAPSHOT</marvin.api.version>
+        <gmaven-plugin.version>1.5</gmaven-plugin.version>
+        <maven-surefire-plugin.version>2.12.2</maven-surefire-plugin.version>
+        <jdk.version>1.8</jdk.version>
     </properties>
 
     <repositories>
@@ -20,9 +26,54 @@
             <id>oss.sonatype.org</id>
             <url>https://oss.sonatype.org/content/repositories/releases/</url>
         </repository>
+        <repository>
+            <id>beolnix-snapshots</id>
+            <url>http://nexus.beolnix.com/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
     <dependencies>
+
+        <!-- marvin deps -->
+        <dependency>
+            <groupId>com.beolnix.marvin</groupId>
+            <artifactId>core</artifactId>
+            <version>${marvin.core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.beolnix.marvin</groupId>
+            <artifactId>api</artifactId>
+            <version>${marvin.api.version}</version>
+        </dependency>
+
+        <!-- logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+
+
+        <!-- tests -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- maven deps -->
+
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-aether</artifactId>
@@ -60,4 +111,48 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>${gmaven-plugin.version}</version>
+                <configuration>
+                    <providerSelection>1.8</providerSelection>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generateTestStubs</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <failIfNoTests>true</failIfNoTests>
+                        <includes>
+                            <include>**/*Test*.*</include>
+                        </includes>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
