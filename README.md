@@ -9,10 +9,6 @@ Project can be used to create integration tests for your own OSGI plugins of [ma
 | 0.2-SNAPSHOT | In dev | [master](https://github.com/beolnix/marvin-plugin-int-test) |  |
 
 ## Requirements
-#### To run
-* JDK 8 only
-
-#### To build
 * JDK 8
 * Maven 3.1.1
 * Groovy 2.4.4
@@ -24,7 +20,7 @@ mvn clean install
 ``` 
 
 ## Usage 
-+ Add maven dependency
+Just add maven dependency
 ```xml
 <dependency>
     <groupId>com.beolnix.marvin</groupId>
@@ -32,7 +28,7 @@ mvn clean install
     <version>0.1</version>
 </dependency>
 ```
-+ Extend OSGIPluginsIntegrationTest class and implement test. Simple example:
+And extend OSGIPluginsIntegrationTest class and implement test. Simple example:
 ```groovy
 class EchoPluginIntegrationTest extends OSGIPluginsIntegrationTest {
 
