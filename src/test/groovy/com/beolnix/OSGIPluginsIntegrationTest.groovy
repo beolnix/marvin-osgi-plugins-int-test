@@ -97,7 +97,7 @@ class OSGIPluginsIntegrationTest {
 
         initContainerWith(pluginsListener)
 
-        int checkAttempts = 30
+        int checkAttempts = 60
         int currentCheckAttempt = 0
 
         while (currentCheckAttempt < checkAttempts && !isPluginDeployed) {
