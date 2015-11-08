@@ -3,9 +3,8 @@ package com.beolnix
 import com.beolnix.marvin.im.api.IMSessionManager
 import com.beolnix.marvin.im.api.model.IMIncomingMessageBuilder
 import com.beolnix.marvin.im.api.model.IMOutgoingMessage
-import org.junit.FixMethodOrder
+import com.beolnix.marvin.plugin.OSGIPluginsIntegrationTest
 import org.junit.Test
-import org.junit.runners.MethodSorters
 import org.sonatype.aether.repository.RemoteRepository
 
 import static org.junit.Assert.assertNotNull;

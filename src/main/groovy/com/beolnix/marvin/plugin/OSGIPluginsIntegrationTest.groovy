@@ -1,4 +1,4 @@
-package com.beolnix
+package com.beolnix.marvin.plugin
 
 import com.beolnix.marvin.config.api.ConfigurationProvider
 import com.beolnix.marvin.config.api.model.PluginsSettings
@@ -20,9 +20,6 @@ import static java.nio.file.StandardCopyOption.*;
 import org.sonatype.aether.util.artifact.DefaultArtifact
 
 import java.nio.file.Files
-
-import static org.junit.Assert.assertNotNull
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by beolnix on 08/11/15.
@@ -90,8 +87,8 @@ abstract class OSGIPluginsIntegrationTest {
             currentCheckAttempt += 1
         }
 
-        assertTrue(isPluginDeployed)
-        assertNotNull(pluginName)
+        org.junit.Assert.assertTrue(isPluginDeployed)
+        org.junit.Assert.assertNotNull(pluginName)
     }
 
     def File getPlugin() {
