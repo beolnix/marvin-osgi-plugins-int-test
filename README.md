@@ -24,7 +24,6 @@ mvn clean install
 ``` 
 
 ## Usage 
-If you like to create integration test for your own OSGI plugin do the following
 1. Add maven dependency
 ```xml
 <dependency>
