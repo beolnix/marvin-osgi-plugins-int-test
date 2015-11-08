@@ -5,10 +5,12 @@ import com.beolnix.marvin.config.api.model.PluginsSettings
 import com.beolnix.marvin.plugins.api.IMPlugin
 import com.beolnix.marvin.plugins.api.PluginsListener
 import com.beolnix.marvin.plugins.api.PluginsManager
+import com.beolnix.marvin.plugins.api.PluginsProvider
 import com.beolnix.marvin.plugins.providers.osgi.FelixOSGIContainer
 import com.beolnix.marvin.plugins.providers.osgi.OSGIPluginsProvider
 import com.jcabi.aether.Aether
 import org.apache.log4j.Logger
+import org.junit.Before
 import org.junit.Test
 import org.sonatype.aether.artifact.Artifact
 import org.sonatype.aether.repository.RemoteRepository
@@ -26,28 +28,92 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by beolnix on 08/11/15.
  */
-class OSGIPluginsIntegrationTest {
+abstract class OSGIPluginsIntegrationTest {
+
+    private final List<RemoteRepository> repos;
+    private final String groupId;
+    private final String artifactId;
+    private final String version;
+    private Integer artifactDeployTimeoutInSecs = 60;
+
+    protected PluginsProvider pluginsProvider
+    protected String pluginDeployPath
+    protected IMPlugin imPlugin
+
+    public OSGIPluginsIntegrationTest(List<RemoteRepository> repos, String groupId, String artifactId, String version) {
+        this.repos = repos
+        this.groupId = groupId
+        this.artifactId = artifactId
+        this.version = version
+        this.pluginDeployPath = "target/${artifactId}_deployPath"
+    }
+
+    public OSGIPluginsIntegrationTest(List<RemoteRepository> repos, String groupId, String artifactId, String version, Integer artifactDeployTimeoutInSecs) {
+        this(repos, groupId, artifactId, version)
+        this.artifactDeployTimeoutInSecs = artifactDeployTimeoutInSecs
+    }
 
     def logger = Logger.getLogger(OSGIPluginsIntegrationTest.class)
 
-    def getPlugin(String group, String artifact, String version) {
+    @Before
+    public void initialization() {
+        def configurationProv = getConfigurationProv()
+
+        def pluginsManager = [
+                registerPluginsProvider: {}
+        ] as PluginsManager
+
+        def felixOsgiContainer = FelixOSGIContainer.createNewInstance(configurationProv)
+        this.pluginsProvider = OSGIPluginsProvider.createNewInstance(configurationProv, felixOsgiContainer, pluginsManager)
+
+        boolean isPluginDeployed = false
+        String pluginName = null
+
+        def pluginsListener = [
+                deployPlugin : { IMPlugin imPlugin ->
+                    isPluginDeployed = true
+                    pluginName = imPlugin.getPluginName()
+                    this.imPlugin = imPlugin
+                },
+                onError: {String msg, Throwable err ->
+                    err.printStackTrace()
+                }
+        ] as PluginsListener
+
+        this.pluginsProvider.registerPluginsListener(pluginsListener)
+
+        deployPlugin()
+
+        int currentCheckAttempt = 0
+
+        while (currentCheckAttempt < this.artifactDeployTimeoutInSecs && !isPluginDeployed) {
+            sleep(1000)
+            currentCheckAttempt += 1
+        }
+
+        assertTrue(isPluginDeployed)
+        assertNotNull(pluginName)
+    }
+
+    def File getPlugin() {
         File local = new File("target/repo");
         if (!local.exists()) {
             local.mkdirs();
         }
-        Collection<RemoteRepository> remotes = Arrays.asList(
-                new RemoteRepository(
-                        "beolnix-snapshots",
-                        "default",
-                        "http://nexus.beolnix.com/content/repositories/snapshots/"
-                )
-        );
 
-        Collection<Artifact> deps = new Aether(remotes, local).resolve(
-                new DefaultArtifact(group, artifact, "", "jar", version),
+        Collection<Artifact> deps = new Aether(this.repos, local).resolve(
+                new DefaultArtifact(this.groupId, this.artifactId, "", "jar", this.version),
                 "runtime"
         );
-        return deps.get(0).file
+
+
+        for (Artifact artifact : deps) {
+            if (artifact.getArtifactId().equals(this.artifactId)) {
+                return artifact.file
+            }
+        }
+
+        return null;
     }
 
     def getConfigurationProv() {
@@ -58,7 +124,7 @@ class OSGIPluginsIntegrationTest {
             pluginsSettings.libsPath = "lib"
             pluginsSettings.logsPath = "target/logs"
             pluginsSettings.systemDeployPath = "target/systemDeploy"
-            pluginsSettings.pluginsDeployPath = "target/pluginsDeployPath"
+            pluginsSettings.pluginsDeployPath = this.pluginDeployPath
             pluginsSettings.tmpPath = "target/tmpPath"
             pluginsSettings
         }] as ConfigurationProvider
@@ -66,54 +132,13 @@ class OSGIPluginsIntegrationTest {
         return configurationProv
     }
 
-    def initContainerWith(PluginsListener listener) {
-        def configurationProv = getConfigurationProv()
 
-        def pluginsManager = [
-                registerPluginsProvider: { pluginsProv ->
-
-                }
-        ] as PluginsManager
-
-        def felixOsgiContainer = FelixOSGIContainer.createNewInstance(configurationProv)
-        def osgiPluginsProvider = OSGIPluginsProvider.createNewInstance(configurationProv, felixOsgiContainer, pluginsManager)
-        osgiPluginsProvider.registerPluginsListener(listener)
-        deployPlugin()
-    }
-
-    @Test
-    public void test() {
-        boolean isPluginDeployed = false
-        String pluginName = null
-        def pluginsListener = [
-                deployPlugin : { IMPlugin imPlugin ->
-                    isPluginDeployed = true
-                    pluginName = imPlugin.getPluginName()
-                },
-                onError: {String msg, Throwable err ->
-                    err.printStackTrace()
-                }
-        ] as PluginsListener
-
-        initContainerWith(pluginsListener)
-
-        int checkAttempts = 60
-        int currentCheckAttempt = 0
-
-        while (currentCheckAttempt < checkAttempts && !isPluginDeployed) {
-            sleep(1000)
-            currentCheckAttempt += 1
-        }
-
-        assertTrue(isPluginDeployed)
-        assertNotNull(pluginName)
-    }
 
     def deployPlugin() {
-        File pluginFile = getPlugin("com.beolnix.marvin", "newyear-plugin", "0.2-SNAPSHOT")
-        File pluginDir = new File("target/pluginsDeployPath")
+        File pluginFile = getPlugin()
+        File pluginDir = new File(this.pluginDeployPath)
         pluginDir.mkdirs()
-        Files.copy(new FileInputStream(pluginFile), Paths.get("target/pluginsDeployPath/marvin-newyear-plugin-0.2-SNAPSHOT.jar"), REPLACE_EXISTING)
+        Files.copy(new FileInputStream(pluginFile), Paths.get("${this.pluginDeployPath}/${this.artifactId}-${this.version}.jar"), REPLACE_EXISTING)
         logger.info("artifact downloaded successfully")
     }
 }
