@@ -29,11 +29,11 @@ import static org.junit.Assert.assertTrue;
  */
 abstract class OSGIPluginsIntegrationTest {
 
-    private final List<RemoteRepository> repos;
-    private final String groupId;
-    private final String artifactId;
-    private final String version;
-    private Integer artifactDeployTimeoutInSecs = 60;
+    protected final List<RemoteRepository> repos;
+    protected final String groupId;
+    protected final String artifactId;
+    protected final String version;
+    protected Integer artifactDeployTimeoutInSecs = 60;
 
     protected PluginsProvider pluginsProvider
     protected String pluginDeployPath
@@ -44,7 +44,7 @@ abstract class OSGIPluginsIntegrationTest {
         this.groupId = groupId
         this.artifactId = artifactId
         this.version = version
-        this.pluginDeployPath = "target/${artifactId}_deployPath"
+        this.pluginDeployPath = "target/${this.artifactId}_deployPath"
     }
 
     public OSGIPluginsIntegrationTest(List<RemoteRepository> repos, String groupId, String artifactId, String version, Integer artifactDeployTimeoutInSecs) {

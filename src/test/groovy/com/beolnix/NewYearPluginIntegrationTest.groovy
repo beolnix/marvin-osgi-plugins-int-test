@@ -9,6 +9,7 @@ import org.junit.runners.MethodSorters
 import org.sonatype.aether.repository.RemoteRepository
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by beolnix on 09/11/15.
@@ -29,17 +30,18 @@ class NewYearPluginIntegrationTest extends OSGIPluginsIntegrationTest {
 
     @Test
     public void test() {
-        IMOutgoingMessage outMsg
+        IMOutgoingMessage[] outMsges
         def imSessionManager = [
                 sendMessage: { msg ->
-                    outMsg = msg
+                    outMsges = msg
                 }
         ] as IMSessionManager
 
         imPlugin.setIMSessionManager(imSessionManager)
         imPlugin.process(getHelpMsg())
 
-        assertNotNull(outMsg)
+        assertNotNull(outMsges)
+        assertTrue(outMsges.length > 0)
     }
 
     def getHelpMsg() {
