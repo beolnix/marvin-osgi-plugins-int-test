@@ -64,6 +64,7 @@ class OSGIPluginsIntegrationTest {
     }
 
     def initContainerWith(PluginsListener listener) {
+        deployPlugin()
         def configurationProv = getConfigurationProv()
 
         def pluginsManager = [
@@ -76,7 +77,7 @@ class OSGIPluginsIntegrationTest {
         def osgiPluginsProvider = OSGIPluginsProvider.createNewInstance(configurationProv, felixOsgiContainer, pluginsManager)
         osgiPluginsProvider.registerPluginsListener(listener)
 
-        deployPlugin()
+
     }
 
     @Test
@@ -100,6 +101,7 @@ class OSGIPluginsIntegrationTest {
 
         while (currentCheckAttempt < checkAttempts && !isPluginDeployed) {
             sleep(1000)
+            currentCheckAttempt += 1
         }
 
         assertTrue(isPluginDeployed)
