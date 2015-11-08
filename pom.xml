@@ -4,7 +4,7 @@
 
     <groupId>com.beolnix.marvin</groupId>
     <artifactId>osgi-plugins-int-test</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <packaging>jar</packaging>
 
     <name>marvin-plugin-int-test</name>
