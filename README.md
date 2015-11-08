@@ -24,7 +24,7 @@ mvn clean install
 ``` 
 
 ## Usage 
-1. Add maven dependency
++ Add maven dependency
 ```xml
 <dependency>
     <groupId>com.beolnix.marvin</groupId>
@@ -32,7 +32,7 @@ mvn clean install
     <version>0.1</version>
 </dependency>
 ```
-2. Extend OSGIPluginsIntegrationTest class and implement test. Simple example:
++ Extend OSGIPluginsIntegrationTest class and implement test. Simple example:
 ```groovy
 class EchoPluginIntegrationTest extends OSGIPluginsIntegrationTest {
 
