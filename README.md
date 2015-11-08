@@ -26,6 +26,7 @@ Just add maven dependency
     <groupId>com.beolnix.marvin</groupId>
     <artifactId>osgi-plugins-int-test</artifactId>
     <version>0.1</version>
+    <scope>test</scope>
 </dependency>
 ```
 And extend OSGIPluginsIntegrationTest class and implement test. Simple example:
