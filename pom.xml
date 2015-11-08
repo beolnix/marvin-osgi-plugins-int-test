@@ -7,8 +7,8 @@
     <version>0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>marvin-plugin-int-test</name>
-    <url>http://maven.apache.org</url>
+    <name>osgi-plugins-int-test</name>
+    <description>Integration tests for maven OSGI plugins.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,6 +20,13 @@
         <maven-surefire-plugin.version>2.12.2</maven-surefire-plugin.version>
         <jdk.version>1.8</jdk.version>
     </properties>
+
+    <developers>
+        <developer>
+            <email>atmakin.dv@gmail.com</email>
+            <name>Danila Atmakin</name>
+        </developer>
+    </developers>
 
     <repositories>
         <repository>
@@ -34,6 +41,19 @@
             </snapshots>
         </repository>
     </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>beolnix-releases</id>
+            <name>releases repo</name>
+            <url>http://nexus.beolnix.com/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>beolnix-snapshots</id>
+            <name>snapshots repo</name>
+            <url>http://nexus.beolnix.com/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
 
@@ -61,8 +81,6 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
-
-
 
         <!-- tests -->
         <dependency>
