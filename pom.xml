@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.beolnix</groupId>
-    <artifactId>marvin-plugin-int-test</artifactId>
+    <groupId>com.beolnix.marvin</groupId>
+    <artifactId>osgi-plugins-int-test</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -69,7 +69,11 @@
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>${groovy.version}</version>
-            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
         </dependency>
 
         <!-- maven deps -->
@@ -104,12 +108,6 @@
             <artifactId>maven-artifact</artifactId>
             <version>${maven.version}</version>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -133,8 +131,10 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>generateTestStubs</goal>
+                            <!--<goal>generateTestStubs</goal>-->
                             <goal>testCompile</goal>
+                            <goal>compile</goal>
+                            <!--<goal>generateStubs</goal>-->
                         </goals>
                     </execution>
                 </executions>
