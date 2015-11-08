@@ -11,7 +11,6 @@ import com.beolnix.marvin.plugins.providers.osgi.OSGIPluginsProvider
 import com.jcabi.aether.Aether
 import org.apache.log4j.Logger
 import org.junit.Before
-import org.junit.Test
 import org.sonatype.aether.artifact.Artifact
 import org.sonatype.aether.repository.RemoteRepository
 
@@ -119,7 +118,7 @@ abstract class OSGIPluginsIntegrationTest {
     def getConfigurationProv() {
         def configurationProv = [getPluginSettings: {
             PluginsSettings pluginsSettings = new PluginsSettings()
-            pluginsSettings.cachePath = "target/cache"
+            pluginsSettings.cachePath = "target/${this.artifactId}_cache"
             pluginsSettings.dirPath = "target/dir"
             pluginsSettings.libsPath = "lib"
             pluginsSettings.logsPath = "target/logs"
