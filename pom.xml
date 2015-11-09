@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.version>3.0.5</maven.version>
         <groovy.version>2.4.4</groovy.version>
-        <marvin.core.version>0.2-SNAPSHOT</marvin.core.version>
+        <marvin.osgi-plugin-provider.version>0.2-SNAPSHOT</marvin.osgi-plugin-provider.version>
         <marvin.api.version>0.2-SNAPSHOT</marvin.api.version>
         <gmaven-plugin.version>1.5</gmaven-plugin.version>
         <maven-surefire-plugin.version>2.12.2</maven-surefire-plugin.version>
@@ -60,8 +60,8 @@
         <!-- marvin deps -->
         <dependency>
             <groupId>com.beolnix.marvin</groupId>
-            <artifactId>core</artifactId>
-            <version>${marvin.core.version}</version>
+            <artifactId>osgi-plugin-provider</artifactId>
+            <version>${marvin.osgi-plugin-provider.version}</version>
         </dependency>
         <dependency>
             <groupId>com.beolnix.marvin</groupId>
