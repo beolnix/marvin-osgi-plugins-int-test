@@ -1,11 +1,11 @@
 ## Project description
-Integration tests for OSGI plugins [newyear-plugin](https://github.com/beolnix/marvin-newyear-plugin/) and [echo-plugin](https://github.com/beolnix/marvin-echo-plugin/) of [marvin](https://github.com/beolnix/marvin-core/) bot.
-Project can be used to create integration tests for your own OSGI plugins of [marvin](https://github.com/beolnix/marvin-core/) bot.
+Integration tests for OSGI plugins [newyear-plugin](https://github.com/beolnix/marvin-newyear-plugin/) and [echo-plugin](https://github.com/beolnix/marvin-echo-plugin/) of [marvin](https://github.com/beolnix/marvin/) bot.
+Project can be used to create integration tests for your own OSGI plugins of [marvin](https://github.com/beolnix/marvin/) bot.
 
 ## Project details
 | Version | State | Source code | Binaries |
 | --- | --- | --- | --- |
-| 0.1 | Stable | [0.1-release](https://github.com/beolnix/marvin-plugin-int-test/releases/tag/0.1-release) | [osgi-plugins-int-test-0.1.jar](http://nexus.beolnix.com/service/local/repositories/releases/content//com/beolnix/marvin/osgi-plugins-int-test/0.1/osgi-plugins-int-test-0.1.jar) |
+| 0.1 | Stable | [0.1-release](https://github.com/beolnix/marvin-plugin-int-test/releases/tag/0.1-release) | [osgi-plugins-int-test-0.1.jar](http://nexus.beolnix.com/service/local/repositories/releases/content//com/beolnix/marvin/marvin-osgi-plugins-int-test/0.1/marvin-osgi-plugins-int-test-0.1.jar) |
 | 0.2-SNAPSHOT | In dev | [master](https://github.com/beolnix/marvin-plugin-int-test) |  |
 
 ## Requirements

@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.beolnix.marvin</groupId>
-    <artifactId>osgi-plugins-int-test</artifactId>
+    <artifactId>marvin-osgi-plugins-int-test</artifactId>
     <version>0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>osgi-plugins-int-test</name>
+    <name>marvin-osgi-plugins-int-test</name>
     <description>Integration tests for maven OSGI plugins.</description>
 
     <properties>
@@ -60,12 +60,12 @@
         <!-- marvin deps -->
         <dependency>
             <groupId>com.beolnix.marvin</groupId>
-            <artifactId>osgi-plugin-provider</artifactId>
+            <artifactId>marvin-osgi-plugin-provider</artifactId>
             <version>${marvin.osgi-plugin-provider.version}</version>
         </dependency>
         <dependency>
             <groupId>com.beolnix.marvin</groupId>
-            <artifactId>api</artifactId>
+            <artifactId>marvin-api</artifactId>
             <version>${marvin.api.version}</version>
         </dependency>
 
