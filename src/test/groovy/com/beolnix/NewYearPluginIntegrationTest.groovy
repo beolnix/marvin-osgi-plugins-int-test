@@ -24,7 +24,7 @@ class NewYearPluginIntegrationTest extends OSGIPluginsIntegrationTest {
     );
 
     NewYearPluginIntegrationTest() {
-        super(remotes, "com.beolnix.marvin", "marvin-newyear-plugin", "0.2")
+        super(remotes, "com.beolnix.marvin", "marvin-newyear-plugin", "0.3-SNAPSHOT")
     }
 
     @Test
