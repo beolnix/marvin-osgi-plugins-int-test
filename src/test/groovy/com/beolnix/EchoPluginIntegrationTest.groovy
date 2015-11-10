@@ -24,7 +24,7 @@ class EchoPluginIntegrationTest extends OSGIPluginsIntegrationTest {
     );
 
     EchoPluginIntegrationTest() {
-        super(remotes, "com.beolnix.marvin", "echo-plugin", "0.2")
+        super(remotes, "com.beolnix.marvin", "echo-plugin", "0.3-SNAPSHOT")
     }
 
     @Test
