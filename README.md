@@ -5,7 +5,7 @@ Project can be used to create integration tests for your own OSGI plugins of [ma
 ## Project details
 | Version | State | Source code | Binaries |
 | --- | --- | --- | --- |
-| 0.2 | Stable | [0.2-release](https://github.com/beolnix/marvin-osgi-plugins-int-test/releases/tag/0.2-release) | [osgi-plugins-int-test-0.2.jar](http://nexus.beolnix.com/service/local/repositories/releases/content/com/beolnix/marvin/osgi-plugins-int-test/0.2/osgi-plugins-int-test-0.2.jar) |
+| 0.2 | Stable | [0.2-release](https://github.com/beolnix/marvin-osgi-plugins-int-test/releases/tag/0.2-release) | [marvin-osgi-plugins-int-test-0.2.jar](http://nexus.beolnix.com/service/local/repositories/releases/content/com/beolnix/marvin/marvin-osgi-plugins-int-test/0.2/marvin-osgi-plugins-int-test-0.2.jar) |
 | 0.3-SNAPSHOT | In dev | [master](https://github.com/beolnix/marvin-osgi-plugins-int-test) |  |
 
 ## Requirements
