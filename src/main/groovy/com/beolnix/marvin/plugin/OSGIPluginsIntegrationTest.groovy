@@ -9,6 +9,7 @@ import com.beolnix.marvin.plugins.api.PluginsProvider
 import com.beolnix.marvin.plugins.providers.osgi.FelixOSGIContainer
 import com.beolnix.marvin.plugins.providers.osgi.OSGIPluginsProvider
 import com.jcabi.aether.Aether
+import org.apache.felix.framework.FrameworkFactory
 import org.apache.log4j.Logger
 import org.junit.Before
 import org.sonatype.aether.artifact.Artifact
@@ -59,8 +60,8 @@ abstract class OSGIPluginsIntegrationTest {
                 registerPluginsProvider: {}
         ] as PluginsManager
 
-        def felixOsgiContainer = FelixOSGIContainer.createNewInstance(configurationProv)
-        this.pluginsProvider = OSGIPluginsProvider.createNewInstance(configurationProv, felixOsgiContainer, pluginsManager)
+        def felixOsgiContainer = FelixOSGIContainer.createNewInstance(configurationProv, new FrameworkFactory())
+        this.pluginsProvider = OSGIPluginsProvider.createNewInstance(felixOsgiContainer, pluginsManager)
 
         boolean isPluginDeployed = false
         String pluginName = null
@@ -122,6 +123,7 @@ abstract class OSGIPluginsIntegrationTest {
             pluginsSettings.systemDeployPath = "target/systemDeploy"
             pluginsSettings.pluginsDeployPath = this.pluginDeployPath
             pluginsSettings.tmpPath = "target/tmpPath"
+            pluginsSettings.pollPeriod = 1000
             pluginsSettings
         }] as ConfigurationProvider
 
