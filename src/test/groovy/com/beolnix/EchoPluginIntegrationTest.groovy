@@ -19,12 +19,12 @@ class EchoPluginIntegrationTest extends OSGIPluginsIntegrationTest {
             new RemoteRepository(
                     "beolnix-snapshots",
                     "default",
-                    "http://nexus.beolnix.com/content/repositories/releases/"
+                    "http://nexus.beolnix.com/content/repositories/snapshots/"
             )
     );
 
     EchoPluginIntegrationTest() {
-        super(remotes, "com.beolnix.marvin", "marvin-echo-plugin", "0.2")
+        super(remotes, "com.beolnix.marvin", "marvin-echo-plugin", "0.3-SNAPSHOT")
     }
 
     @Test

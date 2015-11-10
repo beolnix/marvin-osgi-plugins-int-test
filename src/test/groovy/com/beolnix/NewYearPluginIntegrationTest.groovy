@@ -19,12 +19,12 @@ class NewYearPluginIntegrationTest extends OSGIPluginsIntegrationTest {
             new RemoteRepository(
                     "beolnix-snapshots",
                     "default",
-                    "http://nexus.beolnix.com/content/repositories/releases/"
+                    "http://nexus.beolnix.com/content/repositories/snapshots/"
             )
     );
 
     NewYearPluginIntegrationTest() {
-        super(remotes, "com.beolnix.marvin", "marvin-newyear-plugin", "0.2")
+        super(remotes, "com.beolnix.marvin", "marvin-newyear-plugin", "0.3-SNAPSHOT")
     }
 
     @Test
