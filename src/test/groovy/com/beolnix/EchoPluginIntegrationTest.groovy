@@ -4,6 +4,9 @@ import com.beolnix.marvin.im.api.IMSessionManager
 import com.beolnix.marvin.im.api.model.IMIncomingMessageBuilder
 import com.beolnix.marvin.im.api.model.IMOutgoingMessage
 import com.beolnix.marvin.plugin.OSGIPluginsIntegrationTest
+import com.beolnix.marvin.plugins.api.PluginConfig
+import org.apache.log4j.Logger
+import org.apache.log4j.spi.LoggerFactory
 import org.junit.Test
 import org.sonatype.aether.repository.RemoteRepository
 
@@ -36,7 +39,10 @@ class EchoPluginIntegrationTest extends OSGIPluginsIntegrationTest {
                 }
         ] as IMSessionManager
 
-        imPlugin.setIMSessionManager(imSessionManager)
+        PluginConfig pluginConfig = new PluginConfig('target',
+                new File("target"), Collections.emptyList())
+
+        imPlugin.init(pluginConfig, imSessionManager)
         imPlugin.process(getHelpMsg())
 
         assertNotNull(outMsges)
