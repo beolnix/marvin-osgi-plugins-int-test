@@ -5,9 +5,9 @@ import com.beolnix.marvin.im.api.model.IMIncomingMessageBuilder
 import com.beolnix.marvin.im.api.model.IMOutgoingMessage
 import com.beolnix.marvin.plugin.OSGIPluginsIntegrationTest
 import com.beolnix.marvin.plugins.api.PluginConfig
-import jdk.nashorn.internal.ir.annotations.Ignore
 import org.apache.log4j.Logger
 import org.apache.log4j.spi.LoggerFactory
+import org.junit.Ignore
 import org.junit.Test
 import org.sonatype.aether.repository.RemoteRepository
 
